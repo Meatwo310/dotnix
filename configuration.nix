@@ -98,10 +98,24 @@
       kdePackages.kate
     #  thunderbird
     ];
+    shell = pkgs.zsh;
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    firefox = {
+      enable = true;
+    };
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+    };
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -109,8 +123,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    wget
     vim
     git
     gh
@@ -122,13 +135,6 @@
     noto-fonts-cjk-serif
     noto-fonts-color-emoji
   ];
-
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/etc/nixos";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
