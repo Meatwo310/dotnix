@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+  console.keyMap = "jp106";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -31,7 +33,7 @@
   time.timeZone = "Asia/Tokyo";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "ja_JP.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "ja_JP.UTF-8";
@@ -43,6 +45,12 @@
     LC_PAPER = "ja_JP.UTF-8";
     LC_TELEPHONE = "ja_JP.UTF-8";
     LC_TIME = "ja_JP.UTF-8";
+  };
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = [ pkgs.fcitx5-mozc ];
   };
 
   # Enable the X11 windowing system.
@@ -105,6 +113,13 @@
   #  wget
     vim
     git
+    gh
+  ];
+
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-color-emoji
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
