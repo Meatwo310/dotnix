@@ -114,6 +114,7 @@
     vim
     git
     gh
+    nvd
   ];
 
   fonts.packages = with pkgs; [
@@ -121,6 +122,13 @@
     noto-fonts-cjk-serif
     noto-fonts-color-emoji
   ];
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/etc/nixos";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
