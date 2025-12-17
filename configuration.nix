@@ -117,7 +117,7 @@
     };
     ssh = {
       startAgent = true;
-    }
+    };
   };
 
   # Allow unfree packages
