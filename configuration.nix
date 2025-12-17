@@ -115,6 +115,9 @@
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
     };
+    ssh = {
+      startAgent = true;
+    }
   };
 
   # Allow unfree packages
@@ -151,8 +154,6 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
   services.openssh.settings.PermitRootLogin = "no";
-
-  services.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
