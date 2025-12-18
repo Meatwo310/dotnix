@@ -109,7 +109,11 @@
       enable = true;
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
-      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      ohMyZsh = {
+        enable = true;
+        custom = "${pkgs.zsh-powerlevel10k}/share/zsh";
+        theme = "powerlevel10k/powerlevel10k";
+      };
     };
     nh = {
       enable = true;
