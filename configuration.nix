@@ -119,6 +119,12 @@
     ssh = {
       startAgent = true;
     };
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
   };
 
   # Allow unfree packages
