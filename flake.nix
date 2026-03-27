@@ -7,9 +7,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, vscode-server, nixos-hardware, ... }@inputs:
+  outputs = { nixpkgs, vscode-server, nixos-hardware, ... }:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
       surfaceCommon = nixos-hardware.nixosModules.microsoft-surface-common;
     in {
       nixosConfigurations = {
