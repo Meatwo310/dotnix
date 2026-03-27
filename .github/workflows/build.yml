@@ -1,0 +1,25 @@
+name: Build and Check
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Check configuration
+        run: nix flake check
+      
+      - name: Build system configuration
+        run: |
+          nix build .#nixosConfigurations.sp9-v7.config.system.build.toplevel \
+            --print-build-logs \
+            --no-link
