@@ -3,7 +3,7 @@ name: Build and Check
 on:
   workflow_dispatch:
   push:
-  pull_request:
+  pull_request: 
 
 jobs:
   build:
@@ -17,9 +17,10 @@ jobs:
       
       - name: Check configuration
         run: nix flake check
-      
-      - name: Build system configuration
-        run: |
-          nix build .#nixosConfigurations.sp9-v7.config.system.build.toplevel \
-            --print-build-logs \
-            --no-link
+
+      # TODO: linux-surfaceのビルドが発生しないようにする
+      # - name: Build system configuration
+      #   run: |
+      #     nix build .#nixosConfigurations.sp9-v7.config.system.build.toplevel \
+      #       --print-build-logs \
+      #       --no-link
