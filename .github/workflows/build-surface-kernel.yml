@@ -24,6 +24,9 @@ jobs:
         with:
           name: meatwo310-dotnix
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      
+      - name: Check disk space
+        run: df -h
 
       # longterm (LTS) カーネルをビルド & キャッシュへプッシュ
       - name: Build linux-surface (longterm/LTS)
@@ -40,3 +43,7 @@ jobs:
       #       --print-build-logs \
       #       --no-link \
       #       -j $(nproc)
+
+      - name: Check disk space after build
+        if: always()
+        run: df -h
