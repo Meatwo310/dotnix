@@ -51,5 +51,7 @@
     vim
     wget
     git
+    nil          # Nix Language Server
+    nixpkgs-fmt  # Nix formatter
   ];
 }
