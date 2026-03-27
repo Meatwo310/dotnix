@@ -7,7 +7,6 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "sp9-v7";
 
@@ -18,5 +17,5 @@
 
   system.stateVersion = "25.11";
 
-  services.iptsd.enable = true;
+  # boot.kernelParams = [ "i915.enable_psr=1" ];
 }
