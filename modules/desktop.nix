@@ -3,7 +3,13 @@
 {
   services = {
     xserver.enable = true;
-    displayManager.ly.enable = true;
+    displayManager.ly = {
+      enable = true;
+      settings = {
+        clear_password = false;
+        default_input = "password";
+      };
+    };
     desktopManager.plasma6.enable = true;
     pulseaudio.enable = false;
     pipewire = {
