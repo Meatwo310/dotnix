@@ -20,6 +20,34 @@
         ];
       };
     };
+
+    let
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      surfaceCommon = nixos-hardware.nixosModules.microsoft-surface-common;
+    in {
+      # CI でビルドさせるパッケージを明示的に公開
+      packages.x86_64-linux = {
+        # longterm (LTS) カーネル
+        linux-surface-lts =
+          (nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              surfaceCommon
+              { hardware.microsoft-surface.kernelVersion = "longterm"; }
+            ];
+          }).config.boot.kernelPackages.kernel;
+
+        # # stable カーネル
+        # linux-surface-stable =
+        #   (nixpkgs.lib.nixosSystem {
+        #     system = "x86_64-linux";
+        #     modules = [
+        #       surfaceCommon
+        #       { hardware.microsoft-surface.kernelVersion = "stable"; }
+        #     ];
+        #   }).config.boot.kernelPackages.kernel;
+      };
+    };
   };
 }
 

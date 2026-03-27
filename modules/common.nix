@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [ "https://meatwo310-dotnix.cachix.org" ];
+    trusted-public-keys = [ "meatwo310-dotnix.cachix.org-1:F4Stc7Ivxgl72SHWe8z0pOHAe8Ip7zMFgOK6hdkh26k=" ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 
