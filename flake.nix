@@ -10,6 +10,8 @@
       sp9-v7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          ./modules/common.nix
+          ./modules/desktop.nix
           ./hosts/sp9-v7/configuration.nix
         ];
       };
