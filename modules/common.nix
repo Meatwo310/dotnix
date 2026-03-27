@@ -22,7 +22,14 @@
 
   networking.networkmanager.enable = true;
 
-  services.openssh.enable = true;
+  services = {
+    openssh = {
+      enable = true;
+    };
+    tailscale = {
+      enable = true;
+    };
+  };
 
   users.users.moon = {
     isNormalUser = true;
