@@ -27,15 +27,9 @@
   networking.networkmanager.enable = true;
 
   services = {
-    openssh = {
-      enable = true;
-    };
-    tailscale = {
-      enable = true;
-    };
-    vscode-server = {
-      enable = true;
-    };
+    openssh.enable = true;
+    tailscale.enable = true;
+    vscode-server.enable = true;
   };
 
   programs.nh = {
