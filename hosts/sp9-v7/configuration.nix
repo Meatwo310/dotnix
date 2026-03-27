@@ -17,4 +17,6 @@
   };
 
   system.stateVersion = "25.11";
+
+  services.iptsd.enable = true;
 }
