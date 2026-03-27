@@ -29,6 +29,9 @@
     tailscale = {
       enable = true;
     };
+    vscode-server = {
+      enable = true;
+    };
   };
 
   users.users.moon = {
