@@ -3,7 +3,7 @@
 {
   services = {
     xserver.enable = true;
-    displayManager.sddm.enable = true;
+    displayManager.ly.enable = true;
     desktopManager.plasma6.enable = true;
     pulseaudio.enable = false;
     pipewire = {
