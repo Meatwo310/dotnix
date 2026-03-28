@@ -3,10 +3,28 @@ name: Build and Check
 on:
   workflow_dispatch:
   push:
-  pull_request: 
+  pull_request:
+  schedule:
+    # 毎週月曜 0:00 UTC に実行 (linux-surface キャッシュ更新)
+    - cron: "0 0 * * 1"
 
 jobs:
-  build:
+  check:
+    name: Check configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check flake
+        run: nix flake check
+
+  build-heavy:
+    name: Build heavy packages
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -14,13 +32,48 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Check configuration
-        run: nix flake check
+          extra_nix_config: |
+            cores = 0
+            accept-flake-config = true
 
-      # TODO: linux-surfaceのビルドが発生しないようにする
-      # - name: Build system configuration
-      #   run: |
-      #     nix build .#nixosConfigurations.sp9-v7.config.system.build.toplevel \
-      #       --print-build-logs \
-      #       --no-link
+      - uses: cachix/cachix-action@v17
+        with:
+          name: meatwo310-dotnix
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Check disk space
+        run: df -h
+
+      - name: Build linux-surface (longterm/LTS)
+        run: |
+          nix build .#packages.x86_64-linux.linux-surface-lts \
+            --print-build-logs \
+            --no-link
+
+      - name: Check disk space after build
+        if: always()
+        run: df -h
+
+  build:
+    name: Build system configuration
+    needs: build-heavy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            accept-flake-config = true
+
+      - uses: cachix/cachix-action@v17
+        with:
+          name: meatwo310-dotnix
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build sp9-v7
+        run: |
+          nix build .#nixosConfigurations.sp9-v7.config.system.build.toplevel \
+            --print-build-logs \
+            --no-link
