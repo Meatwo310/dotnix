@@ -7,10 +7,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { nixpkgs, vscode-server, nixos-hardware, ... }:
-    let
-      surfaceCommon = nixos-hardware.nixosModules.microsoft-surface-common;
-    in {
+  outputs = { nixpkgs, vscode-server, nixos-hardware, ... }: {
       nixosConfigurations = {
         sp9-v7 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -25,26 +22,7 @@
       };
 
       # CI でビルドさせるパッケージを明示的に公開
-      packages.x86_64-linux = {
-        # longterm (LTS) カーネル
-        linux-surface-lts =
-          (nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              surfaceCommon
-              { hardware.microsoft-surface.kernelVersion = "longterm"; }
-            ];
-          }).config.boot.kernelPackages.kernel;
-
-        # # stable カーネル
-        # linux-surface-stable =
-        #   (nixpkgs.lib.nixosSystem {
-        #     system = "x86_64-linux";
-        #     modules = [
-        #       surfaceCommon
-        #       { hardware.microsoft-surface.kernelVersion = "stable"; }
-        #     ];
-        #   }).config.boot.kernelPackages.kernel;
-      };
+      packages.x86_64-linux =
+        (import ./packages/linux-surface.nix { inherit nixpkgs nixos-hardware; });
     };
 }
