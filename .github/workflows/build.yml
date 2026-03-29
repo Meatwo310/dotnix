@@ -41,17 +41,6 @@ jobs:
             cores = 0
             accept-flake-config = true
 
-      - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
-        with:
-          primary-key: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
-          gc-max-store-size-linux: 2G
-          purge: true
-          purge-prefixes: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
-          purge-created: 0
-          purge-last-accessed: P1DT12H
-          purge-primary-key: never
-
       - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         with:
           name: meatwo310-dotnix
