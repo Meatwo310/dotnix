@@ -43,9 +43,14 @@ jobs:
 
       - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
-          primary-key: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-${{ hashFiles('**/*.nix', 'flake.lock') }}
+          primary-key: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
-          gc-max-store-size-linux: 4294967296 # 4 GiB
+          gc-max-store-size-linux: 4294967296 # 4 GiB (カーネルビルドは大容量のため)
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
+          purge-created: 0
+          purge-last-accessed: P1DT12H
+          purge-primary-key: never
 
       - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         with:
@@ -80,8 +85,14 @@ jobs:
 
       - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
-          primary-key: nix-${{ runner.os }}-build-${{ hashFiles('**/*.nix', 'flake.lock') }}
+          primary-key: nix-${{ runner.os }}-build-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-build-
+          gc-max-store-size-linux: 1073741824 # 1 GiB
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-build-
+          purge-created: 0
+          purge-last-accessed: P1DT12H
+          purge-primary-key: never
 
       - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         with:
