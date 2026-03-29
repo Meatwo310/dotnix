@@ -45,7 +45,7 @@ jobs:
         with:
           primary-key: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
-          gc-max-store-size-linux: 4294967296 # 4 GiB (カーネルビルドは大容量のため)
+          gc-max-store-size-linux: 2G
           purge: true
           purge-prefixes: nix-${{ runner.os }}-build-heavy-${{ matrix.package }}-
           purge-created: 0
@@ -87,7 +87,7 @@ jobs:
         with:
           primary-key: nix-${{ runner.os }}-build-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-build-
-          gc-max-store-size-linux: 1073741824 # 1 GiB
+          gc-max-store-size-linux: 8G
           purge: true
           purge-prefixes: nix-${{ runner.os }}-build-
           purge-created: 0
