@@ -5,9 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
-  outputs = { nixpkgs, vscode-server, nixos-hardware, ... }: {
+  outputs = { nixpkgs, vscode-server, nixos-hardware, nixos-wsl, ... }: {
       nixosConfigurations = {
         sp9-v7 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -17,6 +18,13 @@
             ./modules/desktop.nix
             nixos-hardware.nixosModules.microsoft-surface-pro-9
             ./hosts/sp9-v7/configuration.nix
+          ];
+        };
+        gaming-wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            nixos-wsl.nixosModules.default
+            ./hosts/gaming-wsl/configuration.nix
           ];
         };
       };
