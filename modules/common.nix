@@ -43,10 +43,13 @@
     extraGroups = [ "wheel" ];
   };
 
+  programs = {
+    vim.enable = true;
+    git.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
-    vim
     wget
-    git
     nil          # Nix Language Server
     nixpkgs-fmt  # Nix formatter
   ];
