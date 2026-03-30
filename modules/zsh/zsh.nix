@@ -11,4 +11,6 @@
     shellInit = lib.mkBefore "source ${./.p10k.zsh}";
     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
   };
+
+  system.userActivationScripts.zshrc = "touch .zshrc";
 }
