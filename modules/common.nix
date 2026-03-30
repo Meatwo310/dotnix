@@ -43,6 +43,12 @@
     extraGroups = [ "wheel" ];
   };
 
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.moon = import ../home/common.nix;
+  };
+
   programs = {
     vim.enable = true;
     git.enable = true;
