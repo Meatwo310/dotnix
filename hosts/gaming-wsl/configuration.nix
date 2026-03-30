@@ -7,4 +7,6 @@
   system.stateVersion = "25.11";
 
   networking.hostName = "gaming-wsl";
+
+  home-manager.users.moon = import ./home.nix;
 }

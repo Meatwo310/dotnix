@@ -46,7 +46,6 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.moon = import ../home/common.nix;
   };
 
   programs = {
