@@ -22,6 +22,7 @@
           vscode-server.nixosModules.default
           ./modules/common.nix
           ./modules/desktop.nix
+          ./modules/zsh/zsh.nix
           ./hosts/sp9-v7/configuration.nix
         ];
       };
@@ -31,6 +32,7 @@
           nixos-wsl.nixosModules.default
           home-manager.nixosModules.home-manager
           ./modules/common.nix
+          ./modules/zsh/zsh.nix
           ./hosts/gaming-wsl/configuration.nix
         ];
       };
