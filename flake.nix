@@ -24,6 +24,7 @@
           system = "x86_64-linux";
           modules = [
             nixos-wsl.nixosModules.default
+            ./modules/common-base.nix
             ./hosts/gaming-wsl/configuration.nix
           ];
         };
