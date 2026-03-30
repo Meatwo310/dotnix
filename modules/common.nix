@@ -50,7 +50,5 @@
 
   environment.systemPackages = with pkgs; [
     wget
-    nil          # Nix Language Server
-    nixpkgs-fmt  # Nix formatter
   ];
 }
