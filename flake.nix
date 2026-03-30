@@ -9,29 +9,29 @@
   };
 
   outputs = { nixpkgs, vscode-server, nixos-hardware, nixos-wsl, ... }: {
-      nixosConfigurations = {
-        sp9-v7 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            nixos-hardware.nixosModules.microsoft-surface-pro-9
-            vscode-server.nixosModules.default
-            ./modules/common.nix
-            ./modules/desktop.nix
-            ./hosts/sp9-v7/configuration.nix
-          ];
-        };
-        gaming-wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            nixos-wsl.nixosModules.default
-            ./modules/common.nix
-            ./hosts/gaming-wsl/configuration.nix
-          ];
-        };
+    nixosConfigurations = {
+      sp9-v7 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.microsoft-surface-pro-9
+          vscode-server.nixosModules.default
+          ./modules/common.nix
+          ./modules/desktop.nix
+          ./hosts/sp9-v7/configuration.nix
+        ];
       };
-
-      # CI でビルドさせるパッケージを明示的に公開
-      packages.x86_64-linux =
-        (import ./packages/linux-surface.nix { inherit nixpkgs nixos-hardware; });
+      gaming-wsl = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-wsl.nixosModules.default
+          ./modules/common.nix
+          ./hosts/gaming-wsl/configuration.nix
+        ];
+      };
     };
+
+    # CI でビルドさせるパッケージを明示的に公開
+    packages.x86_64-linux =
+      (import ./packages/linux-surface.nix { inherit nixpkgs nixos-hardware; });
+  };
 }
