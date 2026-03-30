@@ -13,10 +13,11 @@
         sp9-v7 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            nixos-hardware.nixosModules.microsoft-surface-pro-9
             vscode-server.nixosModules.default
             ./modules/common.nix
+            ./modules/extra.nix
             ./modules/desktop.nix
-            nixos-hardware.nixosModules.microsoft-surface-pro-9
             ./hosts/sp9-v7/configuration.nix
           ];
         };
@@ -24,6 +25,7 @@
           system = "x86_64-linux";
           modules = [
             nixos-wsl.nixosModules.default
+            ./modules/common.nix
             ./hosts/gaming-wsl/configuration.nix
           ];
         };

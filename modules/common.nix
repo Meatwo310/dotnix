@@ -30,14 +30,6 @@
     LC_TIME = "ja_JP.UTF-8";
   };
 
-  networking.networkmanager.enable = true;
-
-  services = {
-    openssh.enable = true;
-    tailscale.enable = true;
-    vscode-server.enable = true;
-  };
-
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -48,14 +40,15 @@
   users.users.moon = {
     isNormalUser = true;
     description = "Moon";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "wheel" ];
+  };
+
+  programs = {
+    vim.enable = true;
+    git.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    vim
     wget
-    git
-    nil          # Nix Language Server
-    nixpkgs-fmt  # Nix formatter
   ];
 }
