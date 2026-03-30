@@ -5,19 +5,33 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   networking.hostName = "sp9-v7";
+  system.stateVersion = "25.11";
 
-  services.xserver.xkb = {
-    layout = "jp";
-    variant = "";
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   console.keyMap = "jp106";
 
-  system.stateVersion = "25.11";
+  networking.networkmanager.enable = true;
 
-  # boot.kernelParams = [ "i915.enable_psr=1" ];
+  environment.systemPackages = with pkgs; [
+    nil          # Nix Language Server
+    nixpkgs-fmt  # Nix formatter
+  ];
+
+  users.users.moon.extraGroups = [ "networkmanager" ];
+
+  services = {
+    openssh.enable = true;
+    tailscale.enable = true;
+    vscode-server.enable = true;
+
+    xserver.xkb = {
+      layout = "jp";
+      variant = "";
+    };
+  };
 }

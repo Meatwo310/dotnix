@@ -16,7 +16,6 @@
             nixos-hardware.nixosModules.microsoft-surface-pro-9
             vscode-server.nixosModules.default
             ./modules/common.nix
-            ./modules/extra.nix
             ./modules/desktop.nix
             ./hosts/sp9-v7/configuration.nix
           ];
