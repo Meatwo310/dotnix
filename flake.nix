@@ -23,6 +23,7 @@
           ./modules/common.nix
           ./modules/desktop.nix
           ./modules/zsh/zsh.nix
+          ./modules/nvim/nvim.nix
           ./hosts/sp9-v7/configuration.nix
         ];
       };
@@ -33,6 +34,7 @@
           home-manager.nixosModules.home-manager
           ./modules/common.nix
           ./modules/zsh/zsh.nix
+          ./modules/nvim/nvim.nix
           ./hosts/gaming-wsl/configuration.nix
         ];
       };
