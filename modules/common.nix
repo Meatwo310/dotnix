@@ -49,7 +49,10 @@
   };
 
   programs = {
-    vim.enable = true;
+    vim = {
+      enable = true;
+      defaultEditor = true;
+    };
     git.enable = true;
   };
 
