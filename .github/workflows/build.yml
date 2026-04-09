@@ -60,7 +60,7 @@ jobs:
         run: df -h
 
   build:
-    name: Build system configuration (${{ matrix.host }})
+    name: Build ${{ matrix.configuration }} (${{ matrix.host }})
     needs: build-heavy
     runs-on: ${{ matrix.runner }}
     strategy:
