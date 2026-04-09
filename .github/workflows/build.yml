@@ -60,15 +60,22 @@ jobs:
         run: df -h
 
   build:
-    name: Build system configuration (${{ matrix.host }})
+    name: Build ${{ matrix.configuration }} (${{ matrix.host }})
     needs: build-heavy
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        host:
-          - sp9-v7
-          - gaming-wsl
+        include:
+          - host: sp9-v7
+            runner: ubuntu-latest
+            configuration: nixosConfigurations
+          - host: gaming-wsl
+            runner: ubuntu-latest
+            configuration: nixosConfigurations
+          - host: m2air
+            runner: macos-latest
+            configuration: darwinConfigurations
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -96,6 +103,6 @@ jobs:
 
       - name: Build ${{ matrix.host }}
         run: |
-          nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
+          nix build .#${{ matrix.configuration }}.${{ matrix.host }}.config.system.build.toplevel \
             --print-build-logs \
             --no-link
