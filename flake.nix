@@ -10,9 +10,11 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, vscode-server, nixos-hardware, nixos-wsl, ... }: {
+  outputs = { self, nixpkgs, home-manager, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
     nixosConfigurations = {
       sp9-v7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -37,6 +39,18 @@
           ./modules/nvim/nvim.nix
           ./hosts/gaming-wsl/configuration.nix
         ];
+      };
+    };
+    darwinConfigurations = {
+      m2air = nix-darwin.lib.darwinSystem {
+        modules = [
+          # home-manager.nixosModules.home-manager
+          # ./modules/common.nix
+          # ./modules/zsh/zsh.nix
+          # ./modules/nvim/nvim.nix
+          ./hosts/m2air/configuration.nix
+        ];
+        specialArgs = { inherit self; };
       };
     };
 
