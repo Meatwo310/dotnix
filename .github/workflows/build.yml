@@ -62,13 +62,20 @@ jobs:
   build:
     name: Build system configuration (${{ matrix.host }})
     needs: build-heavy
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
-        host:
-          - sp9-v7
-          - gaming-wsl
+        include:
+          - host: sp9-v7
+            runner: ubuntu-latest
+            configuration: nixosConfigurations
+          - host: gaming-wsl
+            runner: ubuntu-latest
+            configuration: nixosConfigurations
+          - host: m2air
+            runner: macos-latest
+            configuration: darwinConfigurations
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -96,35 +103,6 @@ jobs:
 
       - name: Build ${{ matrix.host }}
         run: |
-          nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel \
-            --print-build-logs \
-            --no-link
-
-  build-darwin:
-    name: Build darwin configuration (${{ matrix.host }})
-    needs: check
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        host:
-          - m2air
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - uses: cachix/install-nix-action@96951a368ba55167b55f1c916f7d416bac6505fe # v31.10.3
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          extra_nix_config: |
-            accept-flake-config = true
-
-      - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
-        with:
-          name: meatwo310-dotnix
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-      - name: Build ${{ matrix.host }}
-        run: |
-          nix build .#darwinConfigurations.${{ matrix.host }}.config.system.build.toplevel \
+          nix build .#${{ matrix.configuration }}.${{ matrix.host }}.config.system.build.toplevel \
             --print-build-logs \
             --no-link
