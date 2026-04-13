@@ -66,10 +66,8 @@ sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotnix#m2air \
 
 #### 2回目以降の更新
 
-<!-- TODO: darwinでもnhをセットアップし、それを使用する方法に書き換える -->
-
 ```sh
-sudo darwin-rebuild switch --flake ~/dotnix#m2air
+nh darwin switch
 ```
 
 ---
