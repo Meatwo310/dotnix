@@ -1,24 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
+  # Enable zsh system-wide so it appears in /etc/shells
+  programs.zsh.enable = true;
+
+  # Set zsh as the default login shell for all users
   users.defaultUserShell = pkgs.zsh;
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    shellInit = lib.mkBefore "source ${./.p10k.zsh}";
-    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-
-    ohMyZsh = {
-      enable = true;
-      plugins = [
-        "colored-man-pages"
-        "extract"
-      ];
-    };
-  };
-
-  system.userActivationScripts.zshrc = "touch .zshrc";
 }
