@@ -4,6 +4,6 @@
   # Enable zsh system-wide so it appears in /etc/shells
   programs.zsh.enable = true;
 
-  # Set zsh as the default login shell for all users
+  # Use zsh as the default shell for users without an explicit shell configured
   users.defaultUserShell = pkgs.zsh;
 }
