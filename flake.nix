@@ -25,7 +25,6 @@
           ./modules/common.nix
           ./modules/desktop.nix
           ./modules/zsh/zsh.nix
-          ./modules/nvim/nvim.nix
           ./hosts/sp9-v7/configuration.nix
         ];
       };
@@ -36,7 +35,6 @@
           home-manager.nixosModules.home-manager
           ./modules/common.nix
           ./modules/zsh/zsh.nix
-          ./modules/nvim/nvim.nix
           ./hosts/gaming-wsl/configuration.nix
         ];
       };
@@ -44,10 +42,8 @@
     darwinConfigurations = {
       m2air = nix-darwin.lib.darwinSystem {
         modules = [
-          # home-manager.nixosModules.home-manager
-          # ./modules/common.nix
-          # ./modules/zsh/zsh.nix
-          # ./modules/nvim/nvim.nix
+          home-manager.darwinModules.home-manager
+          ./modules/darwin-common.nix
           ./hosts/m2air/configuration.nix
         ];
         specialArgs = { inherit self; };
