@@ -1,7 +1,7 @@
 # dotnix
 
-マイ Nix Flakes 設定リポジトリです。  
-NixOS / nix-darwin を対象とした複数ホスト対応の dotfiles です。
+NixOS / nix-darwin を対象とした複数ホスト対応の Nix Flakes 設定リポジトリです。  
+linux-surfaceなどの自動ビルド・キャッシュも行います。
 
 ## 対応ホスト
 
