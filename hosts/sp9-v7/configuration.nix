@@ -36,4 +36,9 @@
       variant = "";
     };
   };
+
+  # サスペンド後電源ボタンが動作しない問題への回避策 (linux-surface/linux-surface#1910)
+  boot.initrd.kernelModules = [
+    "pinctrl_tigerlake"
+  ];
 }
