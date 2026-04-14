@@ -1,5 +1,11 @@
 # dotnix
 
+[![Build and Check](https://github.com/Meatwo310/dotnix/actions/workflows/build.yml/badge.svg)](https://github.com/Meatwo310/dotnix/actions/workflows/build.yml)
+[![Pinact](https://github.com/Meatwo310/dotnix/actions/workflows/pinact.yml/badge.svg)](https://github.com/Meatwo310/dotnix/actions/workflows/pinact.yml)
+[![works on my machine badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.4.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+[![NixOS](https://img.shields.io/badge/NixOS-flakes-4D6FB7?logo=nixos&logoColor=white)](https://nixos.wiki/wiki/Flakes)
+[![Cachix](https://img.shields.io/badge/cachix-meatwo310--dotnix-blue)](https://meatwo310-dotnix.cachix.org)
+
 NixOS / nix-darwin を対象とした複数ホスト対応の Nix Flake 設定リポジトリです。  
 linux-surface などの自動ビルド・キャッシュも行います。
 
