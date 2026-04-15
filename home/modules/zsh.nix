@@ -21,6 +21,7 @@
       plugins = [
         "colored-man-pages"
         "extract"
+        "git"
       ];
     };
   };
