@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   services = {
@@ -6,8 +6,10 @@
     displayManager.ly = {
       enable = true;
       settings = {
-        clear_password = false;
+        clear_password = true;
         default_input = "password";
+        show_tty = true;
+        tty = lib.mkForce 2;
       };
     };
     desktopManager.plasma6.enable = true;
