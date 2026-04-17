@@ -7,6 +7,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -14,7 +19,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
+  outputs = { self, nixpkgs, home-manager, plasma-manager, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
     nixosConfigurations = {
       sp9-v7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -27,6 +32,7 @@
           ./modules/zsh/zsh.nix
           ./hosts/sp9-v7/configuration.nix
         ];
+        specialArgs = { inherit plasma-manager; };
       };
       gaming-wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

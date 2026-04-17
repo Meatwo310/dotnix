@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, plasma-manager, ... }:
 
 {
   services = {
@@ -31,5 +31,9 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.kate
+  ];
+
+  home-manager.sharedModules = [
+    plasma-manager.homeModules.plasma-manager
   ];
 }
