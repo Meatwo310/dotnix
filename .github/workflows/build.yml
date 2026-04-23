@@ -55,6 +55,11 @@ jobs:
             --print-build-logs \
             --no-link
 
+      - name: Upload ${{ matrix.package }} to Cachix
+        run: |
+          nix path-info --recursive .#packages.x86_64-linux.${{ matrix.package }} \
+            | cachix push meatwo310-dotnix
+
       - name: Check disk space after build
         if: always()
         run: df -h
