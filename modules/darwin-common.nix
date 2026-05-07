@@ -17,6 +17,8 @@
 
   time.timeZone = "Asia/Tokyo";
 
+  environment.variables.HOMEBREW_NO_ENV_HINTS = "1";
+
   # Enable zsh system-wide (adds to /etc/shells)
   programs.zsh.enable = true;
 
