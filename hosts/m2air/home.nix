@@ -12,4 +12,8 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/Users/moon/dotnix";
   };
+
+  programs.bun = {
+    enable = true;
+  };
 }
