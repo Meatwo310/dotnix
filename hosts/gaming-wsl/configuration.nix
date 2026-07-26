@@ -8,5 +8,8 @@
 
   networking.hostName = "gaming-wsl";
 
-  home-manager.users.moon = import ./home.nix;
+  home-manager.users = {
+    moon = import ./home.nix;
+    root = import ../../home/root.nix;
+  };
 }
