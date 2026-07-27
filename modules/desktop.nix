@@ -23,7 +23,10 @@
     printing.enable = true;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.ly.kwallet.enable = true;
+  };
 
   programs = {
     firefox.enable = true;
