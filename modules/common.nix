@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ./base.nix ];
@@ -36,4 +36,8 @@
     };
     git.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    codex
+  ];
 }
