@@ -12,6 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };
@@ -27,7 +31,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
+  outputs = { self, nixpkgs, home-manager, plasma-manager, zen-browser, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
     nixosConfigurations = {
       sp9-v7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -40,7 +44,7 @@
           ./modules/zsh/zsh.nix
           ./hosts/sp9-v7/configuration.nix
         ];
-        specialArgs = { inherit plasma-manager; };
+        specialArgs = { inherit plasma-manager zen-browser; };
       };
       gaming-wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

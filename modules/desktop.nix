@@ -1,4 +1,4 @@
-{ config, lib, pkgs, plasma-manager, ... }:
+{ config, lib, pkgs, plasma-manager, zen-browser, ... }:
 
 {
   services = {
@@ -32,8 +32,19 @@
     firefox.enable = true;
   };
 
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    discover
+    khelpcenter
+  ];
+
   environment.systemPackages = with pkgs; [
+    gparted
+    krita
+    kdePackages.filelight
     kdePackages.kate
+    kdePackages.partitionmanager
+    kdePackages.yakuake
+    zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   home-manager.sharedModules = [
