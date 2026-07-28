@@ -34,11 +34,13 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     discover
+    elisa
     khelpcenter
   ];
 
   environment.systemPackages = with pkgs; [
     gparted
+    haruna
     krita
     kdePackages.filelight
     kdePackages.kate
