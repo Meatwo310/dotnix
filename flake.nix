@@ -83,6 +83,6 @@
 
     # CI でビルドさせるパッケージを明示的に公開
     packages.x86_64-linux =
-      (import ./packages/linux-surface.nix { inherit nixpkgs nixos-hardware; });
+      import ./packages/linux-surface.nix { inherit nixpkgs nixos-hardware; };
   };
 }

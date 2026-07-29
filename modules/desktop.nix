@@ -1,4 +1,4 @@
-{ config, lib, pkgs, plasma-manager, zen-browser, ... }:
+{ lib, pkgs, plasma-manager, zen-browser, ... }:
 
 {
   services = {
