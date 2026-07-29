@@ -7,6 +7,8 @@ let
   };
 in
 {
+  fonts.fontconfig.enable = false;
+
   programs.plasma = {
     enable = true;
 

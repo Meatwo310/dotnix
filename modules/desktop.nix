@@ -62,6 +62,20 @@
     ];
 
     fontconfig = {
+      antialias = true;
+
+      hinting = {
+        enable = true;
+        style = "slight";
+      };
+
+      subpixel = {
+        rgba = "vbgr";
+        lcdfilter = "default";
+      };
+
+      includeUserConf = false;
+
       defaultFonts = {
         sansSerif = [
           "Inter"
