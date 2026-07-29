@@ -49,6 +49,38 @@
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
+  fonts = {
+    packages = with pkgs; [
+      inter
+      (google-fonts.override {
+        fonts = [ "Murecho" ];
+      })
+      nerd-fonts.jetbrains-mono
+      noto-fonts-cjk-sans
+      udev-gothic
+      udev-gothic-nf
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        sansSerif = [
+          "Inter"
+          "Murecho"
+          "Noto Sans CJK JP"
+        ];
+        monospace = [
+          "JetBrainsMono Nerd Font Mono"
+          "UDEV Gothic NFLG"
+        ];
+      };
+
+      aliases.Inter.accept = [
+        "Murecho"
+        "Noto Sans CJK JP"
+      ];
+    };
+  };
+
   home-manager.sharedModules = [
     plasma-manager.homeModules.plasma-manager
   ];
