@@ -29,6 +29,8 @@
     extraGroups = [ "wheel" ];
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   programs = {
     vim = {
       enable = true;
