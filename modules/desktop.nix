@@ -28,6 +28,15 @@
     pam.services.ly.kwallet.enable = true;
   };
 
+  networking.firewall = {
+    allowedTCPPorts = [
+      53317 # LocalSend のファイル転送用
+    ];
+    allowedUDPPorts = [
+      53317 # LocalSend の端末検出用
+    ];
+  };
+
   programs = {
     firefox.enable = true;
   };
@@ -46,6 +55,7 @@
     kdePackages.kate
     kdePackages.partitionmanager
     kdePackages.yakuake
+    localsend
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
