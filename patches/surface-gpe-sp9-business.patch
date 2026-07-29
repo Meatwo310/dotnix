@@ -1,0 +1,28 @@
+From: Meatwo310 <git@meatwo310.net>
+Subject: [PATCH] platform/surface: gpe: support Surface Pro 9 Business
+
+The Surface Pro 9 Business uses the same lid GPE as the standard
+Surface Pro 9, but reports a different DMI product SKU.
+
+diff --git a/drivers/platform/surface/surface_gpe.c b/drivers/platform/surface/surface_gpe.c
+--- a/drivers/platform/surface/surface_gpe.c
++++ b/drivers/platform/surface/surface_gpe.c
+@@ -124,6 +124,18 @@ static const struct dmi_system_id dmi_lid_device_table[] = {
+ 		},
+ 		.driver_data = (void *)lid_device_props_l52,
+ 	},
++	{
++		/*
++		 * We match for SKU here due to product name clash with the ARM
++		 * version.
++		 */
++		.ident = "Surface Pro 9 Business",
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "Surface_Pro_9_for_Business_2038"),
++		},
++		.driver_data = (void *)lid_device_props_l52,
++	},
+ 	{
+ 		.ident = "Surface Book 1",
+ 		.matches = {

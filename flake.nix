@@ -58,6 +58,7 @@
           vscode-server.nixosModules.default
           ./modules/common.nix
           ./modules/desktop.nix
+          ./modules/surface-gpe-sp9-business.nix
           ./modules/zsh/zsh.nix
           ./hosts/sp9-v7/configuration.nix
         ];
