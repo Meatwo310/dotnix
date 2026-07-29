@@ -41,6 +41,12 @@
 
   environment.systemPackages = with pkgs; [
     codex
+    fd
+    file
     gh
+    jq
+    python3
+    ripgrep
+    unzip
   ];
 }

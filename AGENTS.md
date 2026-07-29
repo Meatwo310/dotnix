@@ -21,6 +21,9 @@ Keep reusable settings in modules and reserve `hosts/` for machine-specific diff
 - `nix build .#packages.x86_64-linux.linux-surface-lts --no-link` builds the custom heavy package used in CI.
 - `nh os switch` applies the current NixOS host; `nh darwin switch` applies the nix-darwin host. Review changes before switching.
 - `nixpkgs-fmt .` formats all Nix files.
+- `nix develop` enters the development shell with `statix` and `deadnix`.
+- `statix check .` checks Nix files for style and correctness issues.
+- `deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .` reports unused Nix code while excluding the generated hardware configuration.
 
 ## Coding Style & Naming Conventions
 
@@ -28,7 +31,7 @@ Use two-space indentation and the existing `nixpkgs-fmt` style. Prefer small, co
 
 ## Testing Guidelines
 
-There is no separate unit-test suite. Tests are evaluation and build based: run `nix flake check`, then build every affected host or package. A change to shared files under `modules/` or `home/common.nix` should be checked against all relevant configurations. Do not commit generated `result` symlinks.
+There is no separate unit-test suite. Tests are evaluation and build based: run `nix flake check`, `statix`, and `deadnix`, then build every affected host or package. A change to shared files under `modules/` or `home/common.nix` should be checked against all relevant configurations. Do not commit generated `result` symlinks.
 
 ## Commit & Pull Request Guidelines
 

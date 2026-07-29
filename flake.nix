@@ -32,6 +32,19 @@
   };
 
   outputs = { self, nixpkgs, home-manager, plasma-manager, zen-browser, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
+    devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            deadnix
+            statix
+          ];
+        };
+      });
+
     nixosConfigurations = {
       sp9-v7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

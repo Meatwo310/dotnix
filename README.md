@@ -77,6 +77,26 @@ nh darwin switch
 
 ---
 
+## 開発
+
+`statix`と`deadnix`を含む開発環境を起動します。
+
+```sh
+nix develop
+```
+
+Nixファイルを整形・解析するには、開発環境内で次を実行します。
+
+```sh
+nixpkgs-fmt .
+statix check .
+deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .
+```
+
+`hardware-configuration.nix`は自動生成ファイルのため、`deadnix`の対象から除外しています。
+
+---
+
 ## CI
 
 GitHub Actions によりプッシュのたびに全ホストの設定をビルド・検証しています。  
