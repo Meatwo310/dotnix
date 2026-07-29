@@ -56,6 +56,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    discord
     gparted
     haruna
     krita
