@@ -16,6 +16,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-desktop-linux = {
+      url = "github:ilysenko/codex-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };
@@ -31,7 +35,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, zen-browser, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
+  outputs = { self, nixpkgs, home-manager, plasma-manager, zen-browser, codex-desktop-linux, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }: {
     devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -57,7 +61,7 @@
           ./modules/zsh/zsh.nix
           ./hosts/sp9-v7/configuration.nix
         ];
-        specialArgs = { inherit plasma-manager zen-browser; };
+        specialArgs = { inherit plasma-manager zen-browser codex-desktop-linux; };
       };
       gaming-wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

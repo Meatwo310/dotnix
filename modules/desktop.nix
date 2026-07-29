@@ -1,6 +1,10 @@
-{ lib, pkgs, plasma-manager, zen-browser, ... }:
+{ lib, pkgs, plasma-manager, zen-browser, codex-desktop-linux, ... }:
 
 {
+  imports = [
+    codex-desktop-linux.nixosModules.default
+  ];
+
   services = {
     xserver.enable = true;
     displayManager.ly = {
@@ -38,6 +42,10 @@
   };
 
   programs = {
+    codexDesktopLinux = {
+      enable = true;
+      cliPackage = pkgs.codex;
+    };
     firefox.enable = true;
   };
 
