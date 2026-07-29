@@ -11,7 +11,13 @@
   system.stateVersion = "25.11";
 
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+      windows."11" = {
+        title = "Windows 11";
+        efiDeviceHandle = "FS0";
+      };
+    };
     efi.canTouchEfiVariables = true;
   };
 
