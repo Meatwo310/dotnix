@@ -35,7 +35,10 @@
     };
   };
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+    firewall.trustedInterfaces = [ "tailscale0" ];
+  };
 
   environment.systemPackages = with pkgs; [
     nil # Nix Language Server
@@ -46,7 +49,10 @@
 
   services = {
     openssh.enable = true;
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
     vscode-server.enable = true;
 
     xserver.xkb = {
