@@ -26,6 +26,17 @@ in
       windowTitle = uiFont;
     };
 
+    input.touchpads = [
+      {
+        name = "Microsoft Surface 045E:09AF Touchpad";
+        vendorId = "045e";
+        productId = "09af";
+        disableWhileTyping = false;
+        naturalScroll = true;
+        rightClickMethod = "twoFingers";
+      }
+    ];
+
     powerdevil = {
       AC = {
         powerButtonAction = "lockScreen";
