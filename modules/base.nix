@@ -26,6 +26,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    aria2
     delta
     wget
   ];

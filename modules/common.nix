@@ -41,12 +41,19 @@
 
   environment.systemPackages = with pkgs; [
     codex
+    cryptsetup
+    exfatprogs
+    fatresize
     fd
     file
     gh
+    jfsutils
     jq
     python3
     ripgrep
+    smartmontools
+    udftools
     unzip
+    zfs
   ];
 }
