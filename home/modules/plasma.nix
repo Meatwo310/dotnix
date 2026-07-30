@@ -56,6 +56,9 @@ in
     # plasma-manager の高水準オプションは true と輝度値の組み合わせしか表現できない
     configFile.powerdevilrc."LowBattery/Display".UseProfileSpecificDisplayBrightness = false;
 
+    # plasma-manager に対応する高水準オプションがない
+    configFile.kwinrc.ScreenEdges.RemainActiveOnFullscreen = true;
+
     shortcuts = {
       kwin = {
         "Switch to Desktop 1" = "Meta+1";
