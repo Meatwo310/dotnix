@@ -7,9 +7,11 @@ let
       modules = [
         surfaceCommon
         { hardware.microsoft-surface.kernelVersion = kernelVersion; }
+        ../modules/surface-gpe-sp9-business.nix
       ];
     }).config.boot.kernelPackages.kernel;
-in {
+in
+{
   # longterm (LTS) カーネル
   linux-surface-lts = mkSurfaceKernel "longterm";
 
