@@ -8,6 +8,8 @@
 
   networking.hostName = "sp9-v7";
 
+  time.hardwareClockInLocalTime = true;
+
   home-manager.users.moon = import ./home.nix;
   system.stateVersion = "25.11";
 
