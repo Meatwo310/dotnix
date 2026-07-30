@@ -64,6 +64,10 @@ in
       batteryLevels.criticalAction = "shutDown";
     };
 
+    session.sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
+
+    workspace.enableMiddleClickPaste = false;
+
     # plasma-manager の高水準オプションは true と輝度値の組み合わせしか表現できない
     configFile.powerdevilrc."LowBattery/Display".UseProfileSpecificDisplayBrightness = false;
 
