@@ -37,6 +37,17 @@ in
       }
     ];
 
+    kwin.effects = {
+      blur = {
+        enable = true;
+        strength = 4;
+        noiseStrength = 3;
+      };
+      dimInactive.enable = true;
+      translucency.enable = true;
+      wobblyWindows.enable = true;
+    };
+
     powerdevil = {
       AC = {
         powerButtonAction = "lockScreen";
@@ -58,6 +69,25 @@ in
 
     # plasma-manager に対応する高水準オプションがない
     configFile.kwinrc.ScreenEdges.RemainActiveOnFullscreen = true;
+
+    # plasma-manager に対応する高水準オプションがない
+    configFile.kwinrc.MouseBindings = {
+      CommandAllWheel = "Change Opacity";
+      CommandTitlebarWheel = "Change Opacity";
+    };
+
+    configFile.kwinrc."Effect-blur".Saturation = 200;
+    configFile.kwinrc."Effect-mouseclick".ShowText = false;
+    configFile.kwinrc."Effect-wobblywindows" = {
+      Drag = 85;
+      Stiffness = 10;
+      WobblynessLevel = 1;
+    };
+    configFile.kwinrc.Plugins = {
+      mouseclickEnabled = true;
+      screenedgeEnabled = false;
+      touchpointsEnabled = true;
+    };
 
     shortcuts = {
       kwin = {
@@ -90,5 +120,34 @@ in
 
       yakuake."toggle-window-state" = "Zenkaku Hankaku";
     };
+
+    window-rules = [
+      {
+        description = "Yakuake";
+        match.window-class = {
+          value = "org.kde.yakuake";
+          type = "exact";
+          match-whole = false;
+        };
+        apply = {
+          above = {
+            value = true;
+            apply = "initially";
+          };
+          desktops = {
+            value = "\\0";
+            apply = "initially";
+          };
+          skippager = {
+            value = true;
+            apply = "initially";
+          };
+          skipswitcher = {
+            value = true;
+            apply = "initially";
+          };
+        };
+      }
+    ];
   };
 }
