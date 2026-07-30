@@ -26,17 +26,6 @@ in
       windowTitle = uiFont;
     };
 
-    input.touchpads = [
-      {
-        name = "Microsoft Surface 045E:09AF Touchpad";
-        vendorId = "045e";
-        productId = "09af";
-        disableWhileTyping = false;
-        naturalScroll = true;
-        rightClickMethod = "twoFingers";
-      }
-    ];
-
     input.keyboard.options = [ "ctrl:nocaps" ];
 
     kwin.effects = {
@@ -70,29 +59,37 @@ in
 
     workspace.enableMiddleClickPaste = false;
 
-    # plasma-manager の高水準オプションは true と輝度値の組み合わせしか表現できない
-    configFile.powerdevilrc."LowBattery/Display".UseProfileSpecificDisplayBrightness = false;
-
-    # plasma-manager に対応する高水準オプションがない
-    configFile.kwinrc.ScreenEdges.RemainActiveOnFullscreen = true;
-
-    # plasma-manager に対応する高水準オプションがない
-    configFile.kwinrc.MouseBindings = {
-      CommandAllWheel = "Change Opacity";
-      CommandTitlebarWheel = "Change Opacity";
-    };
-
-    configFile.kwinrc."Effect-blur".Saturation = 200;
-    configFile.kwinrc."Effect-mouseclick".ShowText = false;
-    configFile.kwinrc."Effect-wobblywindows" = {
-      Drag = 85;
-      Stiffness = 10;
-      WobblynessLevel = 1;
-    };
-    configFile.kwinrc.Plugins = {
-      mouseclickEnabled = true;
-      screenedgeEnabled = false;
-      touchpointsEnabled = true;
+    configFile = {
+      powerdevilrc = {
+        "LowBattery/Display" = {
+          UseProfileSpecificDisplayBrightness = false;
+        };
+      };
+      kwinrc = {
+        ScreenEdges = {
+          RemainActiveOnFullscreen = true;
+        };
+        MouseBindings = {
+          CommandAllWheel = "Change Opacity";
+          CommandTitlebarWheel = "Change Opacity";
+        };
+        "Effect-blur" = {
+          Saturation = 200;
+        };
+        "Effect-mouseclick" = {
+          ShowText = false;
+        };
+        "Effect-wobblywindows" = {
+          Drag = 85;
+          Stiffness = 10;
+          WobblynessLevel = 1;
+        };
+        Plugins = {
+          mouseclickEnabled = true;
+          screenedgeEnabled = false;
+          touchpointsEnabled = true;
+        };
+      };
     };
 
     shortcuts = {

@@ -7,9 +7,21 @@
     ../../home/modules/plasma.nix
   ];
 
-  programs.plasma.input.keyboard.layouts = [
-    { layout = "jp"; }
-  ];
+  programs.plasma.input = {
+    keyboard.layouts = [
+      { layout = "jp"; }
+    ];
+    touchpads = [
+      {
+        name = "Microsoft Surface 045E:09AF Touchpad";
+        vendorId = "045e";
+        productId = "09af";
+        disableWhileTyping = false;
+        naturalScroll = true;
+        rightClickMethod = "twoFingers";
+      }
+    ];
+  };
 
   xdg.configFile."fcitx5/profile" = {
     force = true;
