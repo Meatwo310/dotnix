@@ -1,0 +1,44 @@
+diff --git a/contents/config/main.xml b/contents/config/main.xml
+index 82aef99..8649c44 100644
+--- a/contents/config/main.xml
++++ b/contents/config/main.xml
+@@ -39,6 +39,9 @@
+         <entry name="showStatus" type="Bool">
+             <default>true</default>
+         </entry>
++        <entry name="hideAccountEmail" type="Bool">
++            <default>true</default>
++        </entry>
+         <entry name="cliPath" type="String">
+             <default></default>
+         </entry>
+diff --git a/contents/ui/ProviderCard.qml b/contents/ui/ProviderCard.qml
+index f92af54..083b96c 100644
+--- a/contents/ui/ProviderCard.qml
++++ b/contents/ui/ProviderCard.qml
+@@ -329,5 +329,6 @@ ColumnLayout {
+     PlasmaComponents3.Label {
+-        visible: card.usage && card.usage.identity && card.usage.identity.accountEmail !== undefined
++        visible: !Plasmoid.configuration.hideAccountEmail
++                 && card.usage && card.usage.identity && card.usage.identity.accountEmail !== undefined
+         text: card.usage && card.usage.identity && card.usage.identity.accountEmail
+               ? i18n("Account: %1", card.usage.identity.accountEmail) : ""
+         opacity: 0.55
+diff --git a/contents/ui/configGeneral.qml b/contents/ui/configGeneral.qml
+index bd3a310..cb73d61 100644
+--- a/contents/ui/configGeneral.qml
++++ b/contents/ui/configGeneral.qml
+@@ -12,6 +12,7 @@ KCM.SimpleKCM {
+     property alias cfg_hideCritters: hideCritters.checked
+     property alias cfg_showCost: showCost.checked
+     property alias cfg_showStatus: showStatus.checked
++    property alias cfg_hideAccountEmail: hideAccountEmail.checked
+     property alias cfg_cliPath: cliPath.text
+     property string cfg_panelPercentSource
+     property string cfg_percentStyle
+@@ -100,0 +102,5 @@ KCM.SimpleKCM {
++
++        QQC2.CheckBox {
++            id: hideAccountEmail
++            text: i18n("Hide account email address")
++        }

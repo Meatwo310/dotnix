@@ -56,6 +56,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    (callPackage ../packages/codexbar-cli.nix { })
+    (callPackage ../packages/codexbar-plasmoid.nix { })
     discord
     gparted
     haruna
