@@ -26,6 +26,25 @@ in
       windowTitle = uiFont;
     };
 
+    powerdevil = {
+      AC = {
+        powerButtonAction = "lockScreen";
+        powerProfile = "performance";
+      };
+      battery = {
+        powerButtonAction = "lockScreen";
+        powerProfile = "balanced";
+      };
+      lowBattery = {
+        powerButtonAction = "lockScreen";
+        powerProfile = "powerSaving";
+      };
+      batteryLevels.criticalAction = "shutDown";
+    };
+
+    # plasma-manager の高水準オプションは true と輝度値の組み合わせしか表現できない
+    configFile.powerdevilrc."LowBattery/Display".UseProfileSpecificDisplayBrightness = false;
+
     shortcuts = {
       kwin."Window Close" = [ "Meta+Q" "Alt+F4" ];
     };
