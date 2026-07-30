@@ -37,6 +37,8 @@ in
       }
     ];
 
+    input.keyboard.options = [ "ctrl:nocaps" ];
+
     kwin.effects = {
       blur = {
         enable = true;
