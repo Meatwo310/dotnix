@@ -23,6 +23,8 @@
     flake = "/home/moon/dotnix";
   };
 
+  programs.nix-ld.enable = true;
+
   users.users.moon = {
     isNormalUser = true;
     description = "Moon";
