@@ -34,7 +34,6 @@ in
         strength = 4;
         noiseStrength = 3;
       };
-      dimInactive.enable = true;
       translucency.enable = true;
       wobblyWindows.enable = true;
     };
