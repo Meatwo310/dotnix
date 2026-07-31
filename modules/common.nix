@@ -16,15 +16,6 @@
     LC_TIME = "ja_JP.UTF-8";
   };
 
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/moon/dotnix";
-  };
-
-  programs.nix-ld.enable = true;
-
   users.users.moon = {
     isNormalUser = true;
     description = "Moon";
@@ -39,6 +30,13 @@
       defaultEditor = true;
     };
     git.enable = true;
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/moon/dotnix";
+    };
+    nix-ld.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
