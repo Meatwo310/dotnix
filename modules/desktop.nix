@@ -68,6 +68,7 @@
     kdePackages.partitionmanager
     kdePackages.yakuake
     localsend
+    prismlauncher
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
