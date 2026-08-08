@@ -1,5 +1,15 @@
 { lib, pkgs, plasma-manager, zen-browser, codex-desktop-linux, ... }:
 
+let
+  zen = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  zen-alt = pkgs.writeShellScriptBin "zen-alt" ''
+    exec ${lib.getExe zen} \
+      -no-remote \
+      -profile "$HOME/.config/zen/zen-alt" \
+      "$@"
+  '';
+in
+
 {
   imports = [
     codex-desktop-linux.nixosModules.default
@@ -69,7 +79,8 @@
     kdePackages.yakuake
     localsend
     prismlauncher
-    zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    zen
+    zen-alt
   ];
 
   fonts = {
