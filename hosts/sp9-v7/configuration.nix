@@ -13,6 +13,11 @@
   home-manager.users.moon = import ./home.nix;
   system.stateVersion = "25.11";
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
+
   boot.loader = {
     systemd-boot = {
       enable = true;
