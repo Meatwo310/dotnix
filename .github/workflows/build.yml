@@ -8,6 +8,10 @@ on:
     # 毎週月曜 0:00 UTC に実行 (linux-surface キャッシュ更新)
     - cron: "0 0 * * 1"
 
+concurrency:
+  group: build-and-check
+  cancel-in-progress: false
+
 jobs:
   check:
     name: Check configuration
