@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "codexbar-cli";
-  version = "0.46.0";
+  version = "0.53.0";
 
   src = fetchurl {
     url = "https://github.com/steipete/CodexBar/releases/download/v${version}/CodexBarCLI-v${version}-linux-musl-x86_64.tar.gz";
-    hash = "sha256-yMrOpu1WIv2sGVgvY9qf2XCoX2AXMSqR2b8bQDRU6os=";
+    hash = "sha256-PGIIZv6QCk4t+hPGgMDK70nQxC4GBTpR3x/9QpMI/dA=";
   };
 
   sourceRoot = ".";

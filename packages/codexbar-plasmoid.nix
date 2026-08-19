@@ -5,13 +5,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "codexbar-plasmoid";
-  version = "0.2.0-unstable-2026-07-23";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "psimaker";
     repo = "codexbar-plasmoid";
-    rev = "09e6bc690cae62c5e13fc95695d27b55f95b1f81";
-    hash = "sha256-QCKwRG7WTC3RCvWnFUVUcjGhXIyQq9KupJdHdouDSSY=";
+    rev = "v0.3.1";
+    hash = "sha256-2jZX2CrSgdTAE6ZEKsvvVCVKxMRQjK4DkpCpJWh30ZE=";
   };
 
   patches = [
