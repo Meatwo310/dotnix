@@ -2,27 +2,51 @@ diff --git a/contents/config/main.xml b/contents/config/main.xml
 index 8123084..3193281 100644
 --- a/contents/config/main.xml
 +++ b/contents/config/main.xml
-@@ -37,0 +38,3 @@
+@@ -35,6 +35,9 @@
+         <entry name="showStatus" type="Bool">
+             <default>true</default>
+         </entry>
 +        <entry name="hideAccountEmail" type="Bool">
 +            <default>true</default>
 +        </entry>
+         <entry name="cliPath" type="String">
+             <default></default>
+         </entry>
 diff --git a/contents/ui/ProviderCard.qml b/contents/ui/ProviderCard.qml
 index 2f1d8d3..9865a21 100644
 --- a/contents/ui/ProviderCard.qml
 +++ b/contents/ui/ProviderCard.qml
-@@ -336 +336,2 @@ ColumnLayout {
+@@ -333,7 +333,8 @@ ColumnLayout {
+     }
+ 
+     PlasmaComponents3.Label {
 -        visible: !card.extrasOnly && card.usage && card.usage.identity
 +        visible: !card.extrasOnly && !Plasmoid.configuration.hideAccountEmail
 +                 && card.usage && card.usage.identity
+                  && card.usage.identity.accountEmail !== undefined
+         text: card.usage && card.usage.identity && card.usage.identity.accountEmail
+               ? i18n("Account: %1", card.usage.identity.accountEmail) : ""
 diff --git a/contents/ui/configGeneral.qml b/contents/ui/configGeneral.qml
 index 9965acc..a04e033 100644
 --- a/contents/ui/configGeneral.qml
 +++ b/contents/ui/configGeneral.qml
-@@ -16,0 +17 @@ KCM.SimpleKCM {
+@@ -14,6 +14,7 @@ KCM.SimpleKCM {
+     property alias cfg_hideCritters: hideCritters.checked
+     property alias cfg_showCost: showCost.checked
+     property alias cfg_showStatus: showStatus.checked
 +    property alias cfg_hideAccountEmail: hideAccountEmail.checked
-@@ -132,0 +134,5 @@ KCM.SimpleKCM {
+     property alias cfg_cliPath: cliPath.text
+     property alias cfg_enableClaudeAccounts: enableClaudeAccounts.checked
+     property alias cfg_claudeAdapterPath: claudeAdapterPath.text
+@@ -130,6 +131,11 @@ KCM.SimpleKCM {
+             text: i18n("Show provider status")
+         }
+ 
 +        QQC2.CheckBox {
 +            id: hideAccountEmail
 +            text: i18n("Hide account email address")
 +        }
 +
+         Item { Kirigami.FormData.isSection: true }
+ 
+         QQC2.TextField {
