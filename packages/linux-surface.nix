@@ -1,7 +1,7 @@
 { nixpkgs, nixos-hardware }:
 let
   surfaceCommon = nixos-hardware.nixosModules.microsoft-surface-common;
-  mkSurfaceKernel = kernelVersion:
+  mkSurfaceKernelConfig = kernelVersion:
     (nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -9,12 +9,15 @@ let
         { hardware.microsoft-surface.kernelVersion = kernelVersion; }
         ../modules/surface-gpe-sp9-business.nix
       ];
-    }).config.boot.kernelPackages.kernel;
+    }).config;
+  ltsConfig = mkSurfaceKernelConfig "longterm";
 in
 {
+  kernelPackages = ltsConfig.boot.kernelPackages;
+
   # longterm (LTS) カーネル
-  linux-surface-lts = mkSurfaceKernel "longterm";
+  linux-surface-lts = ltsConfig.boot.kernelPackages.kernel;
 
   # # stable カーネル
-  # linux-surface-stable = mkSurfaceKernel "stable";
+  # linux-surface-stable = (mkSurfaceKernelConfig "stable").boot.kernelPackages.kernel;
 }

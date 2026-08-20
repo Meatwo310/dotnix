@@ -95,6 +95,22 @@ deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .
 
 `hardware-configuration.nix`は自動生成ファイルのため、`deadnix`の対象から除外しています。
 
+### Flake inputの更新
+
+通常のパッケージとSurfaceカーネルは、それぞれ別の`nixpkgs` inputに固定しています。
+通常の更新では、カーネル用のinputを含めずに更新してください。
+
+```sh
+nix flake update nixpkgs home-manager plasma-manager zen-browser \
+  codex-desktop-linux vscode-server nixos-wsl nix-darwin
+```
+
+Surfaceカーネルを更新する場合は、カーネル用の`nixpkgs`と`nixos-hardware`を一緒に更新します。
+
+```sh
+nix flake update kernel-nixpkgs nixos-hardware
+```
+
 ---
 
 ## CI
