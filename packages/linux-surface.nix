@@ -10,14 +10,10 @@ let
         ../modules/surface-gpe-sp9-business.nix
       ];
     }).config;
-  ltsConfig = mkSurfaceKernelConfig "longterm";
+  stableConfig = mkSurfaceKernelConfig "stable";
 in
 {
-  kernelPackages = ltsConfig.boot.kernelPackages;
+  kernelPackages = stableConfig.boot.kernelPackages;
 
-  # longterm (LTS) カーネル
-  linux-surface-lts = ltsConfig.boot.kernelPackages.kernel;
-
-  # # stable カーネル
-  # linux-surface-stable = (mkSurfaceKernelConfig "stable").boot.kernelPackages.kernel;
+  linux-surface-stable = stableConfig.boot.kernelPackages.kernel;
 }

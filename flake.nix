@@ -98,7 +98,7 @@
 
       # CI でビルドさせるパッケージを明示的に公開
       packages.x86_64-linux = {
-        inherit (surfaceKernel) linux-surface-lts;
+        inherit (surfaceKernel) linux-surface-stable;
       };
     };
 }
