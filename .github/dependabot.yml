@@ -1,0 +1,40 @@
+version: 2
+
+updates:
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      kernel-inputs:
+        patterns:
+          - "kernel-nixpkgs"
+          - "nixos-hardware"
+
+      flake-inputs:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "kernel-nixpkgs"
+          - "nixos-hardware"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:30"
+      timezone: "Asia/Tokyo"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

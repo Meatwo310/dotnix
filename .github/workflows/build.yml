@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   push:
   pull_request:
-  schedule:
-    # 毎週月曜 0:00 UTC に実行 (linux-surface キャッシュ更新)
-    - cron: "0 0 * * 1"
 
 concurrency:
   group: build-and-check
@@ -49,6 +46,17 @@ jobs:
         with:
           name: meatwo310-dotnix
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: >-
+            ${{
+              secrets.CACHIX_AUTH_TOKEN == '' ||
+              !(
+                (github.event_name == 'push' &&
+                 github.ref == 'refs/heads/main') ||
+                (github.event_name == 'pull_request' &&
+                 github.actor == 'dependabot[bot]' &&
+                 startsWith(github.head_ref, 'dependabot/nix/'))
+              )
+            }}
 
       - name: Check disk space
         run: df -h
@@ -60,7 +68,19 @@ jobs:
             --no-link
 
       - name: Upload ${{ matrix.package }} to Cachix
+        if: >-
+          (github.event_name == 'push' &&
+           github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' &&
+           github.actor == 'dependabot[bot]' &&
+           startsWith(github.head_ref, 'dependabot/nix/'))
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
+          if [[ -z "$CACHIX_AUTH_TOKEN" ]]; then
+            echo "CACHIX_AUTH_TOKEN is not configured; skipping upload"
+            exit 0
+          fi
           nix path-info --recursive .#packages.x86_64-linux.${{ matrix.package }} \
             | cachix push meatwo310-dotnix
 
@@ -109,6 +129,17 @@ jobs:
         with:
           name: meatwo310-dotnix
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: >-
+            ${{
+              secrets.CACHIX_AUTH_TOKEN == '' ||
+              !(
+                (github.event_name == 'push' &&
+                 github.ref == 'refs/heads/main') ||
+                (github.event_name == 'pull_request' &&
+                 github.actor == 'dependabot[bot]' &&
+                 startsWith(github.head_ref, 'dependabot/nix/'))
+              )
+            }}
 
       - name: Build ${{ matrix.host }}
         run: |
