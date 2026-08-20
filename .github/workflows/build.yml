@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   push:
   pull_request:
-  schedule:
-    # 毎週月曜 0:00 UTC に実行 (linux-surface キャッシュ更新)
-    - cron: "0 0 * * 1"
 
 concurrency:
   group: build-and-check
@@ -48,7 +45,6 @@ jobs:
       - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         with:
           name: meatwo310-dotnix
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Check disk space
         run: df -h
@@ -60,7 +56,20 @@ jobs:
             --no-link
 
       - name: Upload ${{ matrix.package }} to Cachix
+        if: >-
+          (github.event_name == 'push' &&
+           github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' &&
+           github.event.pull_request.user.login == 'dependabot[bot]' &&
+           github.event.pull_request.head.repo.full_name == github.repository &&
+           startsWith(github.head_ref, 'dependabot/nix/'))
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
+          if [[ -z "$CACHIX_AUTH_TOKEN" ]]; then
+            echo "::notice::CACHIX_AUTH_TOKEN is not configured; skipping upload"
+            exit 0
+          fi
           nix path-info --recursive .#packages.x86_64-linux.${{ matrix.package }} \
             | cachix push meatwo310-dotnix
 
@@ -108,10 +117,28 @@ jobs:
       - uses: cachix/cachix-action@1eb2ef646ac0255473d23a5907ad7b04ce94065c # v17
         with:
           name: meatwo310-dotnix
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Build ${{ matrix.host }}
         run: |
           nix build .#${{ matrix.configuration }}.${{ matrix.host }}.config.system.build.toplevel \
             --print-build-logs \
             --no-link
+
+      - name: Upload ${{ matrix.host }} to Cachix
+        if: >-
+          (github.event_name == 'push' &&
+           github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' &&
+           github.event.pull_request.user.login == 'dependabot[bot]' &&
+           github.event.pull_request.head.repo.full_name == github.repository &&
+           startsWith(github.head_ref, 'dependabot/nix/'))
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          if [[ -z "$CACHIX_AUTH_TOKEN" ]]; then
+            echo "::notice::CACHIX_AUTH_TOKEN is not configured; skipping upload"
+            exit 0
+          fi
+          nix path-info --recursive \
+            .#${{ matrix.configuration }}.${{ matrix.host }}.config.system.build.toplevel \
+            | cachix push meatwo310-dotnix
