@@ -7,6 +7,16 @@
     ../../home/modules/plasma.nix
   ];
 
+  programs.git = {
+    enable = true;
+    package = null;
+    signing = {
+      key = "~/.ssh/git_signing";
+      format = "ssh";
+      signByDefault = true;
+    };
+  };
+
   programs.plasma.input = {
     keyboard.layouts = [
       { layout = "jp"; }
