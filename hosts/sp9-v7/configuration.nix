@@ -8,6 +8,8 @@
 
   networking.hostName = "sp9-v7";
 
+  hardware.bluetooth.enable = true;
+
   time.hardwareClockInLocalTime = true;
 
   home-manager.users.moon = import ./home.nix;
