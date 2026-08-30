@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -56,6 +56,9 @@
       variant = "";
     };
   };
+
+  # SSH は必要なときだけ手動で起動する
+  systemd.services.sshd.wantedBy = lib.mkForce [ ];
 
   # サスペンド後電源ボタンが動作しない問題への回避策 (linux-surface/linux-surface#1910)
   boot.initrd.kernelModules = [
