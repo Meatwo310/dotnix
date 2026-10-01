@@ -109,6 +109,7 @@ Git の名義は全ホスト共通で `Meatwo310 <git@meatwo310.net>` とし、�
 | `~/.ssh/id_ed25519_github` | GitHub 認証 | `GitHub Authentication` |
 
 通常の SSH キーは標準のファイル名なので、追加の `IdentityFile` 設定は不要です。
+`github.com` への接続は `~/.ssh/id_ed25519_github` を明示的に選択し、ユーザー名を `git` に設定します。
 署名の検証には、管理された `~/.ssh/allowed_signers` を使用します。
 
 ### 開発環境
