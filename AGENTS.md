@@ -20,14 +20,14 @@ Keep reusable settings in modules and reserve `hosts/` for machine-specific diff
 - `nix build .#darwinConfigurations.m2air.config.system.build.toplevel --no-link` validates the macOS host.
 - `nix build .#packages.x86_64-linux.linux-surface-lts --no-link` builds the custom heavy package used in CI.
 - `nh os switch` applies the current NixOS host; `nh darwin switch` applies the nix-darwin host. Review changes before switching.
-- `nixpkgs-fmt .` formats all Nix files.
-- `nix develop` enters the development shell with `statix` and `deadnix`.
+- `nix fmt` formats Nix files using `nixfmt-tree`, excluding generated `hardware-configuration.nix` files; `nixfmt <file>` formats a single file.
+- `nix develop` enters the development shell with `nixfmt`, `nixfmt-tree`, `statix`, and `deadnix`.
 - `statix check .` checks Nix files for style and correctness issues.
 - `deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .` reports unused Nix code while excluding the generated hardware configuration.
 
 ## Coding Style & Naming Conventions
 
-Use two-space indentation and the existing `nixpkgs-fmt` style. Prefer small, composable modules and explicit relative imports. Name host directories after `networking.hostName`; use lowercase kebab-case for module and package files. Keep comments focused on non-obvious platform constraints or workarounds. The repository’s VS Code settings use `nil` for language-server diagnostics.
+Use two-space indentation and the standard `nixfmt` style. Prefer small, composable modules and explicit relative imports. Name host directories after `networking.hostName`; use lowercase kebab-case for module and package files. Keep comments focused on non-obvious platform constraints or workarounds. The repository’s VS Code settings use `nil` for language-server diagnostics.
 
 ## Testing Guidelines
 

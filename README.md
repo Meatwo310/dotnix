@@ -97,7 +97,7 @@ nh darwin switch
 
 ## 開発
 
-`statix`と`deadnix`を含む開発環境を起動します。
+`nixfmt`、`nixfmt-tree`、`statix`、`deadnix`を含む開発環境を起動します。
 
 ```sh
 nix develop
@@ -106,12 +106,15 @@ nix develop
 Nixファイルを整形・解析するには、開発環境内で次を実行します。
 
 ```sh
-nixpkgs-fmt .
+nix fmt
 statix check .
 deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .
 ```
 
-`hardware-configuration.nix`は自動生成ファイルのため、`deadnix`の対象から除外しています。
+`nix fmt`は`nixfmt-tree`を使ってリポジトリ内のNixファイルを一括整形します。
+単一ファイルは`nixfmt flake.nix`で整形できます。VS Codeと`nil`も`nixfmt`を使用します。
+
+`hardware-configuration.nix`は自動生成ファイルのため、一括整形と`deadnix`の対象から除外しています。
 
 ### Flake inputの更新
 
