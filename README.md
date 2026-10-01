@@ -61,10 +61,28 @@ nh os switch
 
 ### macOS / nix-darwin（`m2air`）
 
-#### 初回セットアップ
+#### Nix をインストール
+
+[Nix 公式の macOS 向け手順](https://nixos.org/download/):
 
 ```sh
-sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotnix#m2air \
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
+```
+
+#### 初回適用
+
+```sh
+nix run --extra-experimental-features "nix-command flakes" nixpkgs#git -- \
+  clone https://github.com/Meatwo310/dotnix ~/dotnix
+cd ~/dotnix
+```
+
+- Homebrew は自動でインストールされ、導入済みの場合は既存パッケージを引き継ぎます。
+- `/etc/bashrc`・`/etc/zshrc` などが競合した場合は、エラーの案内に従って退避し、再実行してください。
+
+```sh
+sudo nix run --extra-experimental-features "nix-command flakes" \
+  nix-darwin/master#darwin-rebuild -- switch --flake ~/dotnix#m2air \
   --option extra-substituters "https://nix-community.cachix.org https://meatwo310-dotnix.cachix.org" \
   --option extra-trusted-public-keys "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= meatwo310-dotnix.cachix.org-1:F4Stc7Ivxgl72SHWe8z0pOHAe8Ip7zMFgOK6hdkh26k="
 ```
