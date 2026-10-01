@@ -1,14 +1,13 @@
-{ ... }:
+{ config, ... }:
 
 {
   imports = [ ../../home/common.nix ];
 
   home.stateVersion = "24.11";
 
-  programs.zsh.profileExtra = ''
-    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
-    export PATH="$PATH:/Users/moon/Library/Application Support/JetBrains/Toolbox/scripts"
-  '';
+  home.sessionPath = [
+    "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
+  ];
 
   # On macOS, nh is configured via home-manager (no nix-darwin system module)
   programs.nh = {
