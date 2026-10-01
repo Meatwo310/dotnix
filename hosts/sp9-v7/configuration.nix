@@ -40,7 +40,7 @@
 
   environment.systemPackages = with pkgs; [
     nil # Nix Language Server
-    nixpkgs-fmt # Nix formatter
+    nixfmt # Nix formatter
   ];
 
   users.users.moon.extraGroups = [ "networkmanager" ];

@@ -59,6 +59,11 @@
       };
     in
     {
+      formatter = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
+        nixpkgs.legacyPackages.${system}.nixfmt-tree.override {
+          settings.excludes = [ "**/hardware-configuration.nix" ];
+        });
+
       devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
@@ -66,6 +71,8 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              nixfmt
+              self.formatter.${system}
               deadnix
               statix
             ];
