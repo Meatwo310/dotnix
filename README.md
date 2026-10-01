@@ -97,6 +97,22 @@ nh darwin switch
 
 ## 開発
 
+### Git と SSH キー
+
+Git の名義は全ホスト共通で `Meatwo310 <git@meatwo310.net>` とし、コミットはデフォルトで SSH 署名します。
+公開鍵は Home Manager で管理します。対応する秘密鍵は各ホストに手動で配置してください。
+
+| 秘密鍵の配置先 | 用途 | 公開鍵のコメント |
+| --- | --- | --- |
+| `~/.ssh/id_ed25519` | 通常の SSH 認証 | `key@meatwo310.net` |
+| `~/.ssh/id_ed25519_git` | Git コミット署名 | `git@meatwo310.net` |
+| `~/.ssh/id_ed25519_github` | GitHub 認証 | `GitHub Authentication` |
+
+通常の SSH キーは標準のファイル名なので、追加の `IdentityFile` 設定は不要です。
+署名の検証には、管理された `~/.ssh/allowed_signers` を使用します。
+
+### 開発環境
+
 `nixfmt`、`nixfmt-tree`、`statix`、`deadnix`を含む開発環境を起動します。
 
 ```sh
