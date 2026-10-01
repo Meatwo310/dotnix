@@ -34,9 +34,24 @@
     };
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
-  outputs = { self, nixpkgs, kernel-nixpkgs, home-manager, plasma-manager, zen-browser, codex-desktop-linux, vscode-server, nixos-hardware, nixos-wsl, nix-darwin, ... }:
+  outputs =
+    { self
+    , nixpkgs
+    , kernel-nixpkgs
+    , home-manager
+    , plasma-manager
+    , zen-browser
+    , codex-desktop-linux
+    , vscode-server
+    , nixos-hardware
+    , nixos-wsl
+    , nix-darwin
+    , nix-homebrew
+    , ...
+    }:
     let
       surfaceKernel = import ./packages/linux-surface.nix {
         nixpkgs = kernel-nixpkgs;
@@ -89,7 +104,9 @@
         m2air = nix-darwin.lib.darwinSystem {
           modules = [
             home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
             ./modules/darwin-common.nix
+            ./modules/darwin-homebrew.nix
             ./hosts/m2air/configuration.nix
           ];
           specialArgs = { inherit self; };
