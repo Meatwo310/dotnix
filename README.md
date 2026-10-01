@@ -1,6 +1,7 @@
 # dotnix
 
 [![Build and Check](https://github.com/Meatwo310/dotnix/actions/workflows/build.yml/badge.svg)](https://github.com/Meatwo310/dotnix/actions/workflows/build.yml)
+[![Static Checks](https://github.com/Meatwo310/dotnix/actions/workflows/static-check.yml/badge.svg)](https://github.com/Meatwo310/dotnix/actions/workflows/static-check.yml)
 [![Pinact](https://github.com/Meatwo310/dotnix/actions/workflows/pinact.yml/badge.svg)](https://github.com/Meatwo310/dotnix/actions/workflows/pinact.yml)
 [![works on my machine badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.4.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
 [![NixOS](https://img.shields.io/badge/NixOS-flakes-4D6FB7?logo=nixos&logoColor=white)](https://nixos.wiki/wiki/Flakes)
@@ -77,8 +78,7 @@ nix run --extra-experimental-features "nix-command flakes" nixpkgs#git -- \
 cd ~/dotnix
 ```
 
-- Homebrew は自動でインストールされ、導入済みの場合は既存パッケージを引き継ぎます。
-- `/etc/bashrc`・`/etc/zshrc` などが競合した場合は、エラーの案内に従って退避し、再実行してください。
+Homebrew は自動でインストールされ、導入済みの場合は既存パッケージを引き継ぎます。
 
 ```sh
 sudo nix run --extra-experimental-features "nix-command flakes" \
@@ -103,6 +103,8 @@ nh darwin switch
 nix develop
 ```
 
+### 静的チェック
+
 静的チェックはリポジトリのルートで実行します。
 
 ```sh
@@ -118,14 +120,26 @@ nix run .#nixfmt-check
 nix run .#check
 ```
 
-`nix fmt`は`nixfmt-tree`を使ってリポジトリ内のNixファイルを一括整形します。
-単一ファイルは`nixfmt flake.nix`で整形できます。VS Codeと`nil`も`nixfmt`を使用します。
+`nixfmt-check` はファイルを整形し、変更が発生すると失敗します。
 
-`nixfmt-check`は同じ除外設定で整形し、変更が発生すると失敗します。ファイルの書き換えは行われます。
+自動生成される `hardware-configuration.nix` は `statix` と整形の対象から除外しています。
+`deadnix` は `hosts/*/hardware-configuration.nix` を除外します。
 
-`hardware-configuration.nix`は自動生成ファイルのため、`statix`と一括整形の対象から除外しています。
-`deadnix`は`hosts/*/hardware-configuration.nix`を除外します。
-独立した`Static Checks` CIも同じ3つのappを使います。失敗してもビルドCIは継続します。
+### 整形
+
+リポジトリ内の Nix ファイルを `nixfmt-tree` で一括整形します。除外設定は整形チェックと共通です。
+
+```sh
+nix fmt
+```
+
+単一ファイルを整形する場合は、開発環境内で実行します。
+
+```sh
+nixfmt flake.nix
+```
+
+VS Code と `nil` も `nixfmt` を使用します。
 
 ### Flake inputの更新
 
@@ -153,3 +167,6 @@ GitHub Actions によりプッシュのたびに全ホストの設定をビル�
 ```
 nix flake check → ヘビーなカスタムパッケージのビルド → 各ホストのトップレベルビルド
 ```
+
+独立した `Static Checks` ワークフローで、ローカルと同じ `statix`・`deadnix`・`nixfmt-check` の app を実行します。
+あるチェックが失敗しても残りのチェックを実行します。ビルド CI も継続します。
