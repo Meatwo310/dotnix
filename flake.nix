@@ -38,19 +38,20 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , kernel-nixpkgs
-    , home-manager
-    , plasma-manager
-    , zen-browser
-    , codex-desktop-linux
-    , vscode-server
-    , nixos-hardware
-    , nixos-wsl
-    , nix-darwin
-    , nix-homebrew
-    , ...
+    {
+      self,
+      nixpkgs,
+      kernel-nixpkgs,
+      home-manager,
+      plasma-manager,
+      zen-browser,
+      codex-desktop-linux,
+      vscode-server,
+      nixos-hardware,
+      nixos-wsl,
+      nix-darwin,
+      nix-homebrew,
+      ...
     }:
     let
       surfaceKernel = import ./packages/linux-surface.nix {
@@ -59,12 +60,15 @@
       };
     in
     {
-      formatter = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
+      formatter = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
+        system:
         nixpkgs.legacyPackages.${system}.nixfmt-tree.override {
           settings.excludes = [ "**/hardware-configuration.nix" ];
-        });
+        }
+      );
 
-      devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system:
+      devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
@@ -77,7 +81,8 @@
               statix
             ];
           };
-        });
+        }
+      );
 
       nixosConfigurations = {
         sp9-v7 = nixpkgs.lib.nixosSystem {

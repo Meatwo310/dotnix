@@ -102,9 +102,19 @@ in
         "Switch to Desktop 7" = "Meta+7";
         "Switch to Desktop 8" = "Meta+8";
         "Switch to Desktop 9" = "Meta+9";
-        "Window Close" = [ "Meta+Q" "Alt+F4" ];
-        "Window Maximize" = [ "Meta+Up" "Meta+Down" "Meta+PgUp" ];
-        "Window Operations Menu" = [ "Ctrl+Alt+Space" "Alt+F3" ];
+        "Window Close" = [
+          "Meta+Q"
+          "Alt+F4"
+        ];
+        "Window Maximize" = [
+          "Meta+Up"
+          "Meta+Down"
+          "Meta+PgUp"
+        ];
+        "Window Operations Menu" = [
+          "Ctrl+Alt+Space"
+          "Alt+F3"
+        ];
         "Window Quick Tile Bottom" = [ ];
         "Window Quick Tile Top" = [ ];
       };

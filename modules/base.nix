@@ -2,7 +2,10 @@
 
 {
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     substituters = [
       "https://nix-community.cachix.org" # priority 41
       "https://meatwo310-dotnix.cachix.org" # priority 42
