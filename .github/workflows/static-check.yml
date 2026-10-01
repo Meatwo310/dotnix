@@ -1,0 +1,29 @@
+name: Static Checks
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: Check Nix code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: cachix/install-nix-action@96951a368ba55167b55f1c916f7d416bac6505fe # v31.10.3
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Nix lint
+        if: ${{ !cancelled() }}
+        run: nix develop --command statix check --ignore '**/hardware-configuration.nix' .
+
+      - name: Check unused Nix code
+        if: ${{ !cancelled() }}
+        run: nix develop --command deadnix --fail --exclude hosts/*/hardware-configuration.nix -- .
+
+      - name: Check Nix formatting
+        if: ${{ !cancelled() }}
+        run: nix fmt -- --ci
