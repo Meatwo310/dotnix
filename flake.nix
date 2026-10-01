@@ -67,6 +67,61 @@
         }
       );
 
+      apps = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          commands = {
+            statix = pkgs.writeShellApplication {
+              name = "statix-check";
+              runtimeInputs = [ pkgs.statix ];
+              text = ''
+                exec statix check --ignore '**/hardware-configuration.nix' .
+              '';
+            };
+            deadnix = pkgs.writeShellApplication {
+              name = "deadnix-check";
+              runtimeInputs = [ pkgs.deadnix ];
+              text = ''
+                shopt -s nullglob
+                excludes=(hosts/*/hardware-configuration.nix)
+                if (( ''${#excludes[@]} > 0 )); then
+                  exec deadnix --fail --exclude "''${excludes[@]}" -- .
+                fi
+                exec deadnix --fail -- .
+              '';
+            };
+            nixfmt-check = pkgs.writeShellApplication {
+              name = "nixfmt-check";
+              runtimeInputs = [ self.formatter.${system} ];
+              text = ''
+                exec treefmt --ci
+              '';
+            };
+            check = pkgs.writeShellApplication {
+              name = "check";
+              runtimeInputs = [ pkgs.coreutils ];
+              text = ''
+                status=0
+                for command in \
+                  ${pkgs.lib.getExe commands.statix} \
+                  ${pkgs.lib.getExe commands.deadnix} \
+                  ${pkgs.lib.getExe commands.nixfmt-check}; do
+                  echo "Running $(basename "$command")"
+                  "$command" || status=1
+                done
+                exit "$status"
+              '';
+            };
+          };
+        in
+        pkgs.lib.mapAttrs (name: command: {
+          type = "app";
+          program = pkgs.lib.getExe command;
+          meta.description = "Run ${name} for this repository";
+        }) commands
+      );
+
       devShells = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (
         system:
         let

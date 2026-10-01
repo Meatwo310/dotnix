@@ -103,18 +103,29 @@ nh darwin switch
 nix develop
 ```
 
-Nixファイルを整形・解析するには、開発環境内で次を実行します。
+静的チェックはリポジトリのルートで実行します。
 
 ```sh
-nix fmt
-statix check .
-deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .
+nix run .#statix
+nix run .#deadnix
+nix run .#nixfmt-check
+```
+
+3つをまとめて実行する場合は次を使います。途中のチェックが失敗しても残りを実行し、
+いずれかが失敗した場合は終了コード1を返します。
+
+```sh
+nix run .#check
 ```
 
 `nix fmt`は`nixfmt-tree`を使ってリポジトリ内のNixファイルを一括整形します。
 単一ファイルは`nixfmt flake.nix`で整形できます。VS Codeと`nil`も`nixfmt`を使用します。
 
-`hardware-configuration.nix`は自動生成ファイルのため、一括整形と`deadnix`の対象から除外しています。
+`nixfmt-check`は同じ除外設定で整形し、変更が発生すると失敗します。ファイルの書き換えは行われます。
+
+`hardware-configuration.nix`は自動生成ファイルのため、`statix`と一括整形の対象から除外しています。
+`deadnix`は`hosts/*/hardware-configuration.nix`を除外します。
+独立した`Static Checks` CIも同じ3つのappを使います。失敗してもビルドCIは継続します。
 
 ### Flake inputの更新
 

@@ -22,8 +22,10 @@ Keep reusable settings in modules and reserve `hosts/` for machine-specific diff
 - `nh os switch` applies the current NixOS host; `nh darwin switch` applies the nix-darwin host. Review changes before switching.
 - `nix fmt` formats Nix files using `nixfmt-tree`, excluding generated `hardware-configuration.nix` files; `nixfmt <file>` formats a single file.
 - `nix develop` enters the development shell with `nixfmt`, `nixfmt-tree`, `statix`, and `deadnix`.
-- `statix check .` checks Nix files for style and correctness issues.
-- `deadnix --fail --exclude hosts/sp9-v7/hardware-configuration.nix -- .` reports unused Nix code while excluding the generated hardware configuration.
+- `nix run .#statix` checks Nix files for style and correctness issues, excluding generated `hardware-configuration.nix` files.
+- `nix run .#deadnix` reports unused Nix code, excluding `hosts/*/hardware-configuration.nix`.
+- `nix run .#nixfmt-check` uses the configured formatter in CI mode: it rewrites files and fails if formatting changes are needed.
+- `nix run .#check` runs all three static checks, continues after failures, and fails if any check fails. Run these apps from the repository root; `nix develop` is not required.
 
 ## Coding Style & Naming Conventions
 
@@ -31,7 +33,7 @@ Use two-space indentation and the standard `nixfmt` style. Prefer small, composa
 
 ## Testing Guidelines
 
-There is no separate unit-test suite. Tests are evaluation and build based: run `nix flake check`, `statix`, and `deadnix`, then build every affected host or package. A change to shared files under `modules/` or `home/common.nix` should be checked against all relevant configurations. Do not commit generated `result` symlinks.
+There is no separate unit-test suite. Tests are evaluation and build based: run `nix flake check` and `nix run .#check`, then build every affected host or package. A change to shared files under `modules/` or `home/common.nix` should be checked against all relevant configurations. Do not commit generated `result` symlinks.
 
 ## Commit & Pull Request Guidelines
 

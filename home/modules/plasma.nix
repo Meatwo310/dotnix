@@ -1,5 +1,3 @@
-{ ... }:
-
 let
   uiFont = {
     family = "Inter";
