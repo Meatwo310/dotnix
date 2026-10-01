@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   wsl.enable = true;
   wsl.defaultUser = "moon";
