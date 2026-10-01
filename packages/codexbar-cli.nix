@@ -1,7 +1,8 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, makeWrapper
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
 }:
 
 stdenvNoCC.mkDerivation rec {

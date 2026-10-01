@@ -1,4 +1,11 @@
-{ lib, pkgs, plasma-manager, zen-browser, codex-desktop-linux, ... }:
+{
+  lib,
+  pkgs,
+  plasma-manager,
+  zen-browser,
+  codex-desktop-linux,
+  ...
+}:
 
 let
   zen = zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;

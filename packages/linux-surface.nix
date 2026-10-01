@@ -1,7 +1,8 @@
 { nixpkgs, nixos-hardware }:
 let
   surfaceCommon = nixos-hardware.nixosModules.microsoft-surface-common;
-  mkSurfaceKernelConfig = kernelVersion:
+  mkSurfaceKernelConfig =
+    kernelVersion:
     (nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
