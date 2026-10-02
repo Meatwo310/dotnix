@@ -14,6 +14,14 @@
     "codex"
     "codexbar"
     "iterm2"
+    "localsend"
+    "microsoft-excel"
+    "microsoft-onenote"
+    "microsoft-powerpoint"
+    "microsoft-teams"
+    "microsoft-word"
+    "raycast"
+    "zen"
   ];
 
   # Tell nix-darwin (and home-manager) where the user lives on macOS
