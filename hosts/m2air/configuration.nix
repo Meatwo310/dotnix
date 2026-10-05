@@ -24,6 +24,7 @@
     "microsoft-powerpoint"
     "microsoft-teams"
     "microsoft-word"
+    "protonvpn"
     "raycast"
     "zen"
     "zoom"
