@@ -9,6 +9,9 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   nix-homebrew.user = "moon";
+  homebrew.masApps = {
+    Amphetamine = 937984704;
+  };
   homebrew.casks = [
     "chatgpt"
     "codex"
