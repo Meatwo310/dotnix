@@ -27,6 +27,10 @@ Keep reusable settings in modules and reserve `hosts/` for machine-specific diff
 - `nix run .#nixfmt-check` uses the configured formatter in CI mode: it rewrites files and fails if formatting changes are needed.
 - `nix run .#check` runs all three static checks, continues after failures, and fails if any check fails. Run these apps from the repository root; `nix develop` is not required.
 
+## Installation Requests
+
+When the user asks to install an application or package, complete the installation end to end: update the appropriate declarative configuration, run the required checks and affected host build, review the diff, commit the installation changes, and apply the configuration with `nh darwin switch` or `nh os switch` on the target host. The installation request authorizes the commit and switch; do not ask for additional confirmation. Follow any explicit limits such as "configuration only", "do not commit", or "do not switch". Commit only changes related to the installation, preserving unrelated user changes. If the target host is unavailable or a step fails, report the blocker and which steps remain incomplete.
+
 ## Coding Style & Naming Conventions
 
 Use two-space indentation and the standard `nixfmt` style. Prefer small, composable modules and explicit relative imports. Name host directories after `networking.hostName`; use lowercase kebab-case for module and package files. Keep comments focused on non-obvious platform constraints or workarounds. The repository’s VS Code settings use `nil` for language-server diagnostics.
