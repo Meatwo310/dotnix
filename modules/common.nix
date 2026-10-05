@@ -46,7 +46,6 @@
     fatresize
     fd
     file
-    gh
     jfsutils
     jq
     python3
