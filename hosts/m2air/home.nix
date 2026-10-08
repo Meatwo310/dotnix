@@ -1,13 +1,20 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ../../home/common.nix ];
 
-  home.stateVersion = "24.11";
+  home = {
+    stateVersion = "24.11";
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
-  ];
+    packages = with pkgs; [
+      colima
+      docker
+    ];
+
+    sessionPath = [
+      "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
+    ];
+  };
 
   # On macOS, nh is configured via home-manager (no nix-darwin system module)
   programs.nh = {
