@@ -26,6 +26,7 @@
     "microsoft-word"
     "protonvpn"
     "raycast"
+    "tailscale-app"
     "zen"
     "zoom"
   ];
