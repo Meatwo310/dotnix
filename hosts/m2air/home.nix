@@ -12,6 +12,7 @@
     ];
 
     sessionPath = [
+      "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
     ];
   };
