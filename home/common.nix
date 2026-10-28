@@ -8,4 +8,6 @@
     ./modules/ssh.nix
     ./modules/ssh-keys.nix
   ];
+
+  programs.nix-your-shell.enable = true;
 }
