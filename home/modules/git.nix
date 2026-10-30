@@ -5,6 +5,7 @@
     enable = true;
     package = null;
     settings = {
+      pull.rebase = true;
       user = {
         name = "Meatwo310";
         email = "git@meatwo310.net";
