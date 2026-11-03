@@ -7,7 +7,15 @@ let
       system = "x86_64-linux";
       modules = [
         surfaceCommon
-        { hardware.microsoft-surface.kernelVersion = kernelVersion; }
+        {
+          hardware.microsoft-surface.kernelVersion = kernelVersion;
+          boot.kernelPatches = [
+            {
+              name = "rust-x86-target-spec";
+              patch = ../patches/linux-rust-x86-target-spec.patch;
+            }
+          ];
+        }
         ../modules/surface-gpe-sp9-business.nix
       ];
     }).config;
